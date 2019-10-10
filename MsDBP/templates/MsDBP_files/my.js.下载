@@ -1,0 +1,111 @@
+function checkArgument(){
+    if (checkFileExtend("upload_ind") == false){
+        return false;
+    }
+
+    // Sequence input cannot be both null.
+    if (document.getElementById("rec_seq").value == "" && document.getElementById("upload_ind").value == ""){
+        alert("You must input the sequences in textarea or upload sequence file.");
+        document.upload_form.rec_seq.focus();
+        return false;
+    }
+
+    // Sequence input cannot be both true.
+    if (document.getElementById("rec_seq").value != "" && document.getElementById("upload_ind").value != ""){
+        alert("You cannot both input the sequences in textarea and upload sequence file.");
+        document.upload_form.rec_seq.focus();
+        return false;
+    }
+
+    // check the size of the upload file
+    if (document.getElementById("upload_ind").value != ""){
+        if  (checkFileSize("upload_ind") == false){
+            document.upload_form.rec_seq.focus();
+            return false;
+        }
+    }
+    document.getElementById('txt').style.visibility="visible";
+    //timedCount(c);
+    return true;
+}
+
+function setAutoForm(){
+    document.forms[0].rec_seq.value = ">4JOIA\nLDPVFLAFAKLYIRDILDMKESRQVPGVFLYNGHPIKQVDVLGTVIGVRERDAFYSYGVDDSTGVINCICWKKLNTESVSAAPSAARELSLTSQLKKLQETIEQKTKIEIGDTIRVRGSIRTYREEREIHATTYYKVDDPVWNIQIARMLELPTIYRKVYDQPFHS\n>4LC2A\nSMEMQLTPFLILLRKTLEQLQEKDTGNIFSEPVPLSEVPDYLDHIKKPMDFFTMKQNLEAYRYLNFDDFEEDFNLIVSNCLKYNAKDTIFYRAAVRLREQGGAVLRQARRQAEKMG\n>2LYVA\nGGSKSESPKEPEQLRKLFIGGLSFETTDESLRSHFEQWGTLTDCVVMRDPNTKRSRGFGFVTYATVEEVDAAMNARPHKVDGRVVEPKRAVSREDSQRPGAHLTVKKIFVGGIKEDTEEHHLRDYFEQYGKIEVIEIMTDRGSGKKRGFAFVTFDDHDSVDKIVIQKYHTVNGHNCEVRKALSKQEMASASSSQRGR\n>4H63F\nGSHMASGAPPSVDLTSIQWRMPEWVQSMGGLRTENVLEYFSQSPFYSHKSNNEMLKMQSQFNALDLGDLNSQLKRLTGIQFVIIHERPPFLWVIQKQNRLNENEVKPLTVYFVCNENIYMAPNAYTLLATRMLNATYCFQKALTKIEKFPQYNPQEGYTYPKLSNDNLEVDHSNTNEPADENK";
+    //document.forms[0].rec_seq.value = ">piR_pseudo_2813\nGUGUCUAAUGAAAAACAAUGAAUU\n>piR_pseudo_15137\nUCAGUUUUGCCGGUUGAUGACCUU\n>mmu_piR_035721|gb|DQ723674|Mus_musculus:17:27017943:27017967:Minus\nUUUUCACCAUGUGACCUGCCGCCGC\n>piR-mmu-144728\nUGACUGUGUGGCUCCACUGGCAAGGGCGGU";
+    //document.forms[0].rec_seq.value = ">chr1_90372443_90372657\nACTACAGAAGTGAACGGTCACAGCTCTAACCTGCTGAGTCATCTCAGCTCAGCCTTGCTAGCAAGGCCTCCCAGGCTGCATATAGTTTGCTTTTCCTGTTCGTTGCATTCCAACCTGTCAACGGCTATTTTCTGAAGGTCTGTGGGGGCTCATGTAGAAAAGGaataggtctgggtggaggccaagaatctgaatttgtatcatgtaccctagct\n>chr12_25798933_25799133\nTGGATGAGGACAAATCCTGGGTTGGTTATTGCATTGTATCTAATAATTCTGATGATAGGATTGAAGTCCTGTTTGTTGGCTATTGACAGTGTAGAGGTCAAAAATAAAATCACAATACCTGGGttaattttttttaaataaataGTAAACCCCAAGCTATGAGGGATGGCATTGTTCAAGATGGTATGGGGTGGAAGACG\n>chr7_30394075_30394275\nTTCCTTCTTAATGTGCAGTCTCAAATGAATAATTAAAGGGAAGAACCACTTCTTATAGAATGAATTTTTCTGCAGGGTACTCTTACAGATAATGTACACAATCAAATTTGTTGGTTGGTTTTTATAGGAGGAATGGGCATATCAAACAAATACTTAACTTTAGAAAATGTCCCTGCCTTTCTGTTTCTTTCAGAATTTAC";
+}
+
+function checkFileExtend(id){
+    // Check the upload file type, it must be txt or fasta type.
+    var filePath = document.getElementById(id).value;
+
+    if (filePath != ""){
+        var re = /(\\+)/g;
+        filePath = filePath.replace(re,"#");
+        var path_split = filePath.split("#");
+        var filename = path_split[path_split.length - 1];
+        var name_split = filename.split(".");
+        var extend = name_split[name_split.length - 1];
+        var extendAllowed = "txt, fasta";
+        var resIndex = extendAllowed.lastIndexOf(extend);
+        if (resIndex >= 0)
+            return true;
+        else{
+            alert("The upload file must be txt or fasta type.");
+            document.upload_form.upload_ind.focus();
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function showSequence(id) {
+    var mSubObj = document.getElementById(id);
+    if (mSubObj.style.display == "none"){
+        mSubObj.style.display = "block";
+    }
+    else{
+        mSubObj.style.display = "none"; 
+    }
+}
+
+function checkFileSize(id){
+    var maxsize = 1024 * 1024;
+    var errMsg = 'The size of file should be less than 1MB!';
+    var browserCfg = {};
+    var ua = window.navigator.userAgent;
+    if (ua.indexOf("MSIE")>=1){
+        browserCfg.ie = true;
+    }else if(ua.indexOf("Firefox")>=1){
+        browserCfg.firefox = true;
+    }else if(ua.indexOf("Chrome")>=1){
+        browserCfg.chrome = true;
+    }
+    var obj_file = document.getElementById(id);
+    var filesize = 0;
+    if(browserCfg.firefox || browserCfg.chrome ){
+        filesize = obj_file.files[0].size;
+    }else if(browserCfg.ie){
+        var obj_img = document.getElementById('tempimg');
+        obj_img.dynsrc=obj_file.value;
+        filesize = obj_img.fileSize;
+    }
+    if(filesize>maxsize){
+        alert(errMsg);
+        return false;
+    }
+    return true;
+}
+
+var c=0
+var t
+function timedCount()
+{
+    alert("file_name");
+    document.getElementById('time').value=c;
+    c=c+1;
+    t=setTimeout("timedCount()",1000);
+    document.getElementById('txt').style.visibility="visible";
+    return true;
+}

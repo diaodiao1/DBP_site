@@ -1,0 +1,74 @@
+
+<!DOCTYPE html >
+<html>
+<head>
+<!-- Required meta tags always come first -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<!-- Fonts -->
+<link
+    href='https://fonts.googleapis.com/css?family=Lato:400,700,900,300'
+    rel='stylesheet' type='text/css'>
+<link
+    href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+    rel='stylesheet' type='text/css'>
+<link
+    href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,700,900'
+    rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<title>Results</title>
+</head>
+<body>
+    <div class="container">
+        <style>
+            .divcss5{ padding-top:20px; padding-bottom:30px}
+        </style>
+        <div class="divcss5" style="text-align: center;font-size:20pt" >
+            <h2><strong>
+                Prediction Results <a href="{% url 'MsDBP' %}">(Back)</a>
+            </strong></h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel with-nav-tabs panel-info">
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="result">
+                                <div class="container">
+                                    <div class="row">
+                                    <div class="col-lg-11">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td>Sequence ID</td>
+                                                <td>Probability</td>
+                                                <td>DNA-binding protein (Yes or No)</td>
+                                            </tr>
+                                            
+                                            {% for key, value in datas.items %}
+                                                <tr>
+                                                    <td>{{ key }}</td>
+                                                    <td>{{ value.0 }}</td>
+                                                    <td>{{ value.1 }}</td>
+                                                </tr>
+                                            {% endfor %}          
+                                        </table>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

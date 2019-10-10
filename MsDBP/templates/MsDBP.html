@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="DNA binding protein, deep learning, multi-scale feature">
+        <script>
+	       var _hmt = _hmt || [];
+	       (function() {
+	           var hm = document.createElement("script");
+	           hm.src = "https://hm.baidu.com/hm.js?6b22be8cc54a2063993bc23fd0cd102b";
+	           var s = document.getElementsByTagName("script")[0]; 
+	           s.parentNode.insertBefore(hm, s);
+	           })();
+        </script>
+
+        <style type="text/css">
+            h1,h2,h3,h4{font-weight:normal;}
+        </style>
+        <title>MsDBP</title>
+    </head>
+    <body bgcolor="#FFE4C4" style="font-family:Arial, Helvetica, sans-serif">
+        <table align="center" style="width: 900px;">
+        <tbody><tr>
+            <td><h1><strong>MsDBP</strong>: Exploring DNA-binding Proteins by Integrating Multi-scale Sequence Information with Deep Neural Network</h1></td>
+            </tr>
+        </tbody></table>
+        <div style="margin: 0 auto; text-align: center; width: 900px">
+            <h2 align="left" style="font-size:150%; margin-top:0px">
+                <span>|</span>
+                <span><a href="{% url 'MsDBP' %}">Server</a></span>
+                <span>|</span>
+                <span><a href="{% url 'readme' %}">ReadMe</a></span>
+                <span>|</span>
+                <span><a href="{% url 'download' %}">Download</a></span>
+                <span>|</span>
+            </h2><hr style="width: 900px; border: none; border-top: 3px solid gray; height: 0"><table align="center"></table>
+        </div>
+
+        <form action="{% url 'update_predict' %}" method="POST" name="upload_form" onsubmit="return(checkArgument());" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div align="center">
+                <div style="width:800px; font-family:verdana; font-size: large; margin-bottom: 0">
+                    <h3 align="left" style="font-weight: normal">
+                        Input protein sequences (<a href="{% url 'sample_detail' %}" >FASTA format</a>):
+                    </h3>
+                    {% block empty-error %}{% endblock %}
+                    <div class="form-group">
+                        <textarea name="text" id="pre_seq" style="width: 700px; height: 400px;"></textarea>    
+                    </div>            			
+                    <input type="submit" value="Run" style="font-size: large; margin-right: 20px; margin-top: 10px">
+                    <input type="reset" value="Clear" style="font-size: large; margin-top: 10px">
+                </div>
+            </div>
+        </form>
+        <br>
+        <hr style="width: 900px; border: none; border-top: 3px solid gray; height: 0">
+
+        <table align="center" style="width: 900px;">
+            <tbody>
+                <tr>
+                    <td><b>Contact us: </b>Any questions about MsDBP, please email to dxqllp@163.com.</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
