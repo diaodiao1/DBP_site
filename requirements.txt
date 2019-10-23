@@ -7,7 +7,7 @@ html5lib==0.9999999
 Keras==2.0.8
 Markdown==3.1
 numpy==1.13.1
-Pillow==6.0.0
+Pillow==6.2.0
 protobuf==3.7.1
 pytz==2019.1
 PyYAML==5.1
